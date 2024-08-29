@@ -62,6 +62,16 @@ def split_nodes_with_url(old_nodes, extract_markdown, text_type, markdown_recrea
                     split_nodes.append(TextNode(extracted[0][0],text_type, extracted[0][1]))
                     next_level_nodes = split_nodes_with_url([TextNode(sections[1],text_type_text)], extract_markdown, text_type, markdown_recreator)
                     split_nodes.extend(next_level_nodes)
+        else:
+            new_nodes.append(node)
         new_nodes.extend(split_nodes)
     return new_nodes
                 
+def text_to_text_nodes(text):
+    node = TextNode(text, text_type_text)
+    bolds = split_nodes_delimiter([node], delimiter_bold, text_type_bold)
+    italics = split_nodes_delimiter(bolds, delimiter_italic, text_type_italic)
+    codes = split_nodes_delimiter(italics, delimiter_code, text_type_code)
+    imgs = split_nodes_image(codes)
+    links = split_nodes_link(imgs)
+    return links

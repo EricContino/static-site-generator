@@ -49,9 +49,6 @@ class TestInlineMarkdown(unittest.TestCase):
         self.assertEqual(actual, [])
 
     def test_split_images(self):
-        print("=========================\n")
-        print("test_split_images")
-        print("=========================\n")
         node = TextNode(
             "This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)",
             text_type_text,
@@ -69,9 +66,6 @@ class TestInlineMarkdown(unittest.TestCase):
     
 
     def test_split_images_image_first(self):
-        print("=========================\n")
-        print("test_split_images_image_first")
-        print("=========================\n")
         node = TextNode(
             "![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)",
             text_type_text,
@@ -87,9 +81,6 @@ class TestInlineMarkdown(unittest.TestCase):
         self.assertEqual(new_nodes, expected)
 
     def test_split_links(self):
-        print("=========================\n")
-        print("test_split_links")
-        print("=========================\n")
         node = TextNode(
             "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
             text_type_text,
@@ -104,6 +95,24 @@ class TestInlineMarkdown(unittest.TestCase):
             ),
         ]
         self.assertEqual(new_nodes, expected)
+
+    def test_text_to_text_nodes(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        actual = text_to_text_nodes(text)
+        
+        expected = [
+            TextNode("This is ", text_type_text),
+            TextNode("text", text_type_bold),
+            TextNode(" with an ", text_type_text),
+            TextNode("italic", text_type_italic),
+            TextNode(" word and a ", text_type_text),
+            TextNode("code block", text_type_code),
+            TextNode(" and an ", text_type_text),
+            TextNode("obi wan image", text_type_image, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", text_type_text),
+            TextNode("link", text_type_link, "https://boot.dev"),
+        ]
+        self.assertEqual(expected, actual)
 
 if __name__ == "__main__":
     unittest.main()

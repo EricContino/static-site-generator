@@ -9,7 +9,7 @@ text_type_image = "image"
 
 delimiter_bold = "**"
 delimiter_italic = "*"
-delimeter_code = "`"
+delimiter_code = "`"
 
 class TextNode:
     def __init__(self, text, text_type, url=None):
