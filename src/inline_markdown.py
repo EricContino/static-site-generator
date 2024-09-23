@@ -67,7 +67,7 @@ def split_nodes_with_url(old_nodes, extract_markdown, text_type, markdown_recrea
         new_nodes.extend(split_nodes)
     return new_nodes
                 
-def text_to_text_nodes(text):
+def text_to_textnodes(text):
     node = TextNode(text, text_type_text)
     bolds = split_nodes_delimiter([node], delimiter_bold, text_type_bold)
     italics = split_nodes_delimiter(bolds, delimiter_italic, text_type_italic)

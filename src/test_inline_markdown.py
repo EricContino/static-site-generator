@@ -98,7 +98,7 @@ class TestInlineMarkdown(unittest.TestCase):
 
     def test_text_to_text_nodes(self):
         text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
-        actual = text_to_text_nodes(text)
+        actual = text_to_textnodes(text)
         
         expected = [
             TextNode("This is ", text_type_text),
